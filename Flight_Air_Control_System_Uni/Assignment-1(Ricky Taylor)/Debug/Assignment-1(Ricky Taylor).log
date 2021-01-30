@@ -1,0 +1,8 @@
+﻿  Main.cpp
+  FlightSystem.cpp
+  Aircraft.cpp
+  Generating Code...
+d:\oop assignment\assignment-1(ricky taylor)\assignment-1(ricky taylor)\flightsystem.cpp(117): warning C4715: 'FlightSystem::GetHeading': not all control paths return a value
+d:\oop assignment\assignment-1(ricky taylor)\assignment-1(ricky taylor)\flightsystem.cpp(157): warning C4715: 'FlightSystem::GetAltitude': not all control paths return a value
+  Assignment-1(Ricky Taylor).vcxproj -> D:\OOP Assignment\Assignment-1(Ricky Taylor)\Debug\Assignment-1(Ricky Taylor).exe
+  Assignment-1(Ricky Taylor).vcxproj -> D:\OOP Assignment\Assignment-1(Ricky Taylor)\Debug\Assignment-1(Ricky Taylor).pdb (Partial PDB)
