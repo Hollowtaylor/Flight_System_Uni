@@ -1,7 +1,7 @@
 /* Main.cpp
 
 This program is a aircraft flight management system, This is to help the user
-manage all flights in the system aswell as to add or remove flights to and from the system.
+manage all flights in the system as well as to add or remove flights to and from the system.
 
 Author: Ricky Taylor
 
@@ -13,38 +13,38 @@ Author: Ricky Taylor
 #include <regex>
 #include "FlightSystem.h"
 
-bool IsValidNumber(std::string);							   //Declaring Function in advance
-bool IsValidAltitude(int);									   //Declaring Function in advance
-bool IsValidGroundSpeed(int);								   //Declaring Function in advance
-bool IsValidHeading(int);									   //Declaring Function in advance
-bool IsValidGridReference(std::string);						   //Declaring Function in advance
-bool IsValidAircraftType(std::string);					 	   //Declaring Function in advance
-bool IsValidAirline(std::string);						 	   //Declaring Function in advance
-bool IsValidFlightNumber(std::string);						   //Declaring Function in advance
-void modifyAircraftInfo(FlightSystem &system);				   //Declaring Function in advance
-void outputAllAircraft(FlightSystem &system);				   //Declaring Function in advance
-void outputCruisingAircraft(FlightSystem &system);			   //Declaring Function in advance
-void NewAircraft(FlightSystem &system);						   //Declaring Function in advance
-void Direction(int &temp);                                     //Declaring function in advance
-void FlightNumberValidation(std::string &flightNumber);		   //Declaring function in advance
-void AirlineValidation(std::string &airline);				   //Declaring function in advance
-void AircraftTypeValidation(std::string &aircraftType);		   //Declaring function in advance
-void GroundSpeedValidation(int &groundSpeed);				   //Declaring function in advance
-void AltitudeValidation(int &altitude);						   //Declaring function in advance
-void GridReferenceValidation(std::string &gridReference);	   //Declaring function in advance
-void HeadingValidation(int &heading);						   //Declaring function in advance
-void Menu(FlightSystem &sys);								   //Declaring function in advance
-void NumberofAircraft(FlightSystem &sys);
+bool is_valid_number(const std::string&);							   //Declaring Function in advance
+bool is_valid_altitude(int);									   //Declaring Function in advance
+bool is_valid_ground_speed(int);								   //Declaring Function in advance
+bool is_valid_heading(int);									   //Declaring Function in advance
+bool is_valid_grid_reference(const std::string&);						   //Declaring Function in advance
+bool is_valid_aircraft_type(const std::string&);					 	   //Declaring Function in advance
+bool is_valid_airline(const std::string&);						 	   //Declaring Function in advance
+bool is_valid_flight_number(const std::string&);						   //Declaring Function in advance
+void modify_aircraft_info(flight_system &sys);				   //Declaring Function in advance
+void output_all_aircraft(flight_system &sys);				   //Declaring Function in advance
+void output_cruising_aircraft(flight_system &sys);			   //Declaring Function in advance
+void new_aircraft(flight_system &sys);						   //Declaring Function in advance
+void direction(int &temp);                                     //Declaring function in advance
+void flight_number_validation(std::string &flight_number);		   //Declaring function in advance
+void airline_validation(std::string &airline);				   //Declaring function in advance
+void aircraft_type_validation(std::string &aircraft_type);		   //Declaring function in advance
+void ground_speed_validation(int &ground_speed);				   //Declaring function in advance
+void altitude_validation(int &altitude);						   //Declaring function in advance
+void grid_reference_validation(std::string &grid_reference);	   //Declaring function in advance
+void heading_validation(int &heading);						   //Declaring function in advance
+void menu(flight_system &sys);								   //Declaring function in advance
+void number_of_aircraft(flight_system &sys);
 
 int main() {
 
 
-	FlightSystem sys;
-	sys.AddAircraft( "BA241", "sdfsdf", "sffdsd", 123, 34000, "B5", 324 );
-	sys.AddAircraft( "BA231", "sdfsdf", "sffdsd", 123, 34000, "B8", 34 );
-	sys.AddAircraft( "BA251", "sdfsdf", "sffdsd", 123, 34000, "B1", 78 );
-	sys.AddAircraft( "BA671", "sdfsdf", "sffdsd", 123, 34000, "B7", 123 );
-	Menu(sys);
+	flight_system sys;
+	sys.add_aircraft( "BA241", "sdfsdf", "sffdsd", 123, 34000, "B5", 324 );
+	sys.add_aircraft( "BA231", "sdfsdf", "sffdsd", 123, 34000, "B8", 34 );
+	sys.add_aircraft( "BA251", "sdfsdf", "sffdsd", 123, 34000, "B1", 78 );
+	sys.add_aircraft( "BA671", "sdfsdf", "sffdsd", 123, 34000, "B7", 123 );
+	menu(sys);
 }
 
 /*
@@ -53,10 +53,10 @@ This function is the menu for the Aircraft Management System
 
 */
 
-void Menu(FlightSystem &sys) {
+void menu(flight_system &sys) {
 
 	std::string choice;
-	bool valid{ 0 };
+	bool valid{ false };
 
 	do {           //This is being used to put the UI into a infinite loop until the user chooses to exit the system.
 
@@ -71,19 +71,19 @@ void Menu(FlightSystem &sys) {
 		std::getline(std::cin, choice);
 
 		if (choice == "1") {                           //Sends the user to the funtion outputing the list containing all aircraft information in the system
-			outputAllAircraft(sys);
+			output_all_aircraft(sys);
 		}
 		else if (choice == "2") {                      //Sends the user to the funtion outputing the list containing all cruising aircraft information in the system
-			outputCruisingAircraft(sys);
+			output_cruising_aircraft(sys);
 		}
 		else if (choice == "3") {
-			NumberofAircraft(sys);
+			number_of_aircraft(sys);
 		}
 		else if (choice == "4") {                      //Sends the user to the function for adding new aircraft to the system
-			NewAircraft(sys);
+			new_aircraft(sys);
 		}
 		else if (choice == "5") {                      //Sends the user to the function for modifying any aircraft information in the system
-			modifyAircraftInfo(sys);
+			modify_aircraft_info(sys);
 		}
 		else if (choice == "6") {                      //Exits the loop and closes system
 			std::cout << "\nGood Bye" << std::endl;
@@ -91,7 +91,7 @@ void Menu(FlightSystem &sys) {
 			break;
 		}
 		else {                                         //Tells user their menu choice was invalid
-			std::cout << "\nNumber is Invaild" << std::endl;
+			std::cout << "\nNumber is Invalid" << std::endl;
 
 
 		}
@@ -104,46 +104,46 @@ This function is a UI to modify and aircraft information in the system
 
 */
 
-void modifyAircraftInfo(FlightSystem &sys) {
+void modify_aircraft_info(flight_system &sys) {
 
-	std::string modifyChoice;
-	std::string flightNumber;
+	std::string modify_choice;
+	std::string flight_number;
 	int heading;
 	int altitude;
-	bool valid{ 0 };
+	auto valid{ false };
 	std::cout << "What Flight Would You Like To Change?, \n\nEnter Flight Number" << std::endl;     //asking the user which flight they would like to modify
-	getline(std::cin, flightNumber);                                                              //recieving input
+	getline(std::cin, flight_number);                                                              //recieving input
 	std::cout << "\nWhat Would You Like To Modify" << std::endl;                                  //asking the user what aircraft information they would like to modify
 	std::cout << "1) Altitude" << "\n2) Heading" << "\n3) Remove Aircraft" << "\n4) Main Menu" << std::endl;
-	std::getline(std::cin,modifyChoice);
+	std::getline(std::cin,modify_choice);
 	do {
-		if (modifyChoice == "1") {
+		if (modify_choice == "1") {
 
-			AltitudeValidation(altitude);
-			sys.ChangeAltitude(flightNumber, altitude);
+			altitude_validation(altitude);
+			sys.change_altitude(flight_number, altitude);
 		}
-		else if (modifyChoice == "2") {
+		else if (modify_choice == "2") {
 
-			HeadingValidation(heading);
-			sys.ChangeHeading(flightNumber, heading);
+			heading_validation(heading);
+			sys.change_heading(flight_number, heading);
 		}
-		else if (modifyChoice == "3") {
+		else if (modify_choice == "3") {
 
-			sys.RemoveAircraft(flightNumber);                                     //Removing the choosen flight from the system
+			sys.remove_aircraft(flight_number);                                     //Removing the choosen flight from the system
 		}
-		else if (modifyChoice == "4") {
+		else if (modify_choice == "4") {
 			system("cls");
-			Menu(sys);
+			menu(sys);
 		}
 		else {
-			std::cout << "Choice is Invailed" << std::endl;                       //Telling the user their choice was invalid
-			modifyAircraftInfo(sys);
+			std::cout << "Choice is Invalid" << std::endl;                       //Telling the user their choice was invalid
+			modify_aircraft_info(sys);
 			valid = true;
 		}
 	} while (valid != true);
 	system("pause");
 	system("cls");
-	Menu(sys);
+	menu(sys);
 }
 
 /*
@@ -152,27 +152,27 @@ This function outputs a list of all aircraft in the system.
 
 */
 
-void outputAllAircraft(FlightSystem &sys) {
+void output_all_aircraft(flight_system &sys) {
 
 	std::cout << "Flight#" << std::setw(8) << " " << "Airline" << std::setw(15) << " " << "AircraftType" << std::setw(9) << " " <<
 		"GroundSpeed" << std::setw(2) << " " << "Altitude" << std::setw(3) << " " << "GridReference" << std::setw(3) << " " <<
 		"Heading" << std::endl;
 	std::cout << "__________________________________________________________________________________________________________" << std::endl;
-	for (std::vector<int>::size_type i = 0; i != sys.ListAllAircraft().size(); i++) {
-		std::cout.width(15); std::cout << std::left << sys.ListAllAircraft()[i].GetFlightNumber();
-		std::cout.width(22); std::cout << std::left << sys.ListAllAircraft()[i].GetAirline();
-		std::cout.width(21); std::cout << std::left << sys.ListAllAircraft()[i].GetAircraftType();
-		std::cout.width(3); std::cout << std::left << sys.ListAllAircraft()[i].GetGroundSpeed();
+	for (std::vector<int>::size_type i = 0; i != sys.list_all_aircraft().size(); i++) {
+		std::cout.width(15); std::cout << std::left << sys.list_all_aircraft()[i].get_flight_number();
+		std::cout.width(22); std::cout << std::left << sys.list_all_aircraft()[i].get_airline();
+		std::cout.width(21); std::cout << std::left << sys.list_all_aircraft()[i].get_aircraft_type();
+		std::cout.width(3); std::cout << std::left << sys.list_all_aircraft()[i].get_ground_speed();
 		std::cout.width(10); std::cout << std::left << " kts";
-		std::cout.width(5); std::cout << std::left << sys.ListAllAircraft()[i].GetAltitude();
+		std::cout.width(5); std::cout << std::left << sys.list_all_aircraft()[i].get_altitude();
 		std::cout.width(6); std::cout << std::left << " ft";
-		std::cout.width(16); std::cout << std::left << sys.ListAllAircraft()[i].GetGridReference() << std::setw(1);
-		int temp = sys.ListAllAircraft()[i].GetHeading();
-		Direction(temp);
+		std::cout.width(16); std::cout << std::left << sys.list_all_aircraft()[i].get_grid_reference() << std::setw(1);
+		int temp = sys.list_all_aircraft()[i].get_heading();
+		direction(temp);
 	}
 	system("pause");
 	system("cls");
-	Menu(sys);
+	menu(sys);
 }
 
 /*
@@ -181,34 +181,34 @@ This function outputs a list of all cruising aircraft above 30k feet in the syst
 
 */
 
-void outputCruisingAircraft(FlightSystem &sys) {
+void output_cruising_aircraft(flight_system &sys) {
 	
 	std::cout << "Flight#" << std::setw(8) << " " << "Airline" << std::setw(15) << " " << "AircraftType" << std::setw(9) << " " <<
 		"GroundSpeed" << std::setw(2) << " " << "Altitude" << std::setw(3) << " " << "GridReference" << std::setw(3) << " " <<
 		"Heading" << std::endl;
 	std::cout << "__________________________________________________________________________________________________________" << std::endl;
-	for (std::vector<int>::size_type i = 0; i != sys.ListAllCruisingAircraft().size(); i++) {
-		std::cout.width(15); std::cout << std::left << sys.ListAllCruisingAircraft()[i].GetFlightNumber();
-		std::cout.width(22); std::cout << std::left << sys.ListAllCruisingAircraft()[i].GetAirline();
-		std::cout.width(21); std::cout << std::left << sys.ListAllCruisingAircraft()[i].GetAircraftType();
-		std::cout.width(3); std::cout << std::left << sys.ListAllCruisingAircraft()[i].GetGroundSpeed();
+	for (std::vector<int>::size_type i = 0; i != sys.list_all_cruising_aircraft().size(); i++) {
+		std::cout.width(15); std::cout << std::left << sys.list_all_cruising_aircraft()[i].get_flight_number();
+		std::cout.width(22); std::cout << std::left << sys.list_all_cruising_aircraft()[i].get_airline();
+		std::cout.width(21); std::cout << std::left << sys.list_all_cruising_aircraft()[i].get_aircraft_type();
+		std::cout.width(3); std::cout << std::left << sys.list_all_cruising_aircraft()[i].get_ground_speed();
 		std::cout.width(10); std::cout << std::left << " kts";
-		std::cout.width(5); std::cout << std::left << sys.ListAllCruisingAircraft()[i].GetAltitude();
+		std::cout.width(5); std::cout << std::left << sys.list_all_cruising_aircraft()[i].get_altitude();
 		std::cout.width(6); std::cout << std::left << " ft";
-		std::cout.width(16); std::cout << std::left << sys.ListAllCruisingAircraft()[i].GetGridReference() << std::setw(1);
-		int temp = sys.ListAllCruisingAircraft()[i].GetHeading();
-		Direction(temp);
+		std::cout.width(16); std::cout << std::left << sys.list_all_cruising_aircraft()[i].get_grid_reference() << std::setw(1);
+		int temp = sys.list_all_cruising_aircraft()[i].get_heading();
+		direction(temp);
 	}
 	system("pause");
 	system("cls");
-	Menu(sys);
+	menu(sys);
 }
 
-void NumberofAircraft(FlightSystem &sys) {
-	std::cout << "There is: " << sys.numAircraftInSector() << " Aircraft in sector" << std::endl;
+void number_of_aircraft(flight_system &sys) {
+	std::cout << "There is: " << sys.num_aircraft_in_sector() << " Aircraft in sector" << std::endl;
 	system("pause");
 	system("cls");
-	Menu(sys);
+	menu(sys);
 }
 
 /*
@@ -217,28 +217,28 @@ This function is to help the user input a new aircraft and its information into 
 
 */
 
-void NewAircraft(FlightSystem &sys) {
-	std::string flightNumber;
+void new_aircraft(flight_system &sys) {
+	std::string flight_number;
 	std::string airline;
-	std::string aircraftType;
-	int groundSpeed{ 0 };
+	std::string aircraft_type;
+	int ground_speed{ 0 };
 	int altitude{ 0 };
-	std::string gridReference;
+	std::string grid_reference;
 	int heading{ 0 };
 	
-	FlightNumberValidation(flightNumber);
-	AirlineValidation(airline);
-	AircraftTypeValidation(aircraftType);
-	GroundSpeedValidation(groundSpeed);
-	AltitudeValidation(altitude);
-	GridReferenceValidation(gridReference);
-	HeadingValidation(heading);
+	flight_number_validation(flight_number);
+	airline_validation(airline);
+	aircraft_type_validation(aircraft_type);
+	ground_speed_validation(ground_speed);
+	altitude_validation(altitude);
+	grid_reference_validation(grid_reference);
+	heading_validation(heading);
 
 
-	sys.AddAircraft(flightNumber, airline, aircraftType, groundSpeed, altitude, gridReference, heading);
+	sys.add_aircraft(flight_number, airline, aircraft_type, ground_speed, altitude, grid_reference, heading);
 	system("pause");
 	system("cls");
-	Menu(sys);
+	menu(sys);
 }
 
 /*
@@ -247,7 +247,7 @@ This function determines the direction the aircraft is heading in and outputing 
 
 */
 
-void Direction(int &temp) {
+void direction(int &temp) {
 	
 
 	if (temp >= 350 || temp <= 10) {
@@ -288,19 +288,19 @@ void Direction(int &temp) {
 
 /*
 
-This functioon is used to validate user input
+This function is used to validate user input
 
 */
 
-void FlightNumberValidation(std::string &flightNumber) {
+void flight_number_validation(std::string &flight_number) {
 
 	std::string temp;
-	bool valid{ 0 };
+	bool valid{ false };
 	do {                                                             //Looping until the input is valid
 		std::cout << "\nPlease Enter a FlightNumber" << std::endl;
-		std::getline(std::cin, flightNumber);
+		std::getline(std::cin, flight_number);
 
-		if (!(IsValidFlightNumber(flightNumber))) {            //Validating Input
+		if (!(is_valid_flight_number(flight_number))) {            //Validating Input
 			std::cout << "\nFlightNumber is Invalid" << std::endl;
 			valid = false;
 		}
@@ -312,21 +312,21 @@ void FlightNumberValidation(std::string &flightNumber) {
 
 /*
 
-This functioon is used to validate user input
+This function is used to validate user input
 
 */
 
-void AirlineValidation(std::string &airline)	{
+void airline_validation(std::string &airline)	{
 
 	std::string temp;
-	bool valid{ 0 };
+	bool valid{ false };
 	
 	do {															 //Looping until the input is valid
 		std::cout << "\nPlease Enter Airline" << std::endl;
 		std::getline(std::cin, airline);
 		
 		if (airline.length() > 4 && airline.length() < 20) {
-			if ((IsValidAirline(airline))) {	//Validating Input
+			if ((is_valid_airline(airline))) {	//Validating Input
 				valid = true;
 			}
 			else {
@@ -345,20 +345,20 @@ void AirlineValidation(std::string &airline)	{
 
 /*
 
-This functioon is used to validate user input
+This function is used to validate user input
 
 */
 
-void AircraftTypeValidation(std::string &aircraftType)	{
+void aircraft_type_validation(std::string &aircraft_type)	{
 
 	std::string temp;
-	bool valid{ 0 };
+	bool valid{ false };
 	
 	do {															 //Looping until the input is valid
 		std::cout << "\nPlease Enter Aircraft Type" << std::endl;
-		std::getline(std::cin, aircraftType);
+		std::getline(std::cin, aircraft_type);
 
-		if (!(IsValidAircraftType(aircraftType))) {							//Validating Input
+		if (!(is_valid_aircraft_type(aircraft_type))) {							//Validating Input
 
 			std::cout << "Aircraft Type is Invalid" << std::endl;
 			valid = false;
@@ -375,19 +375,19 @@ This functioon is used to validate user input
 
 */
 
-void GroundSpeedValidation(int &groundSpeed)	{
+void ground_speed_validation(int &ground_speed)	{
 
 	std::string temp;
-	bool valid{ 0 };
+	bool valid{ false };
 	
 	do {															 //Looping until the input is valid
 		std::cout << "\nPlease Enter Ground Speed" << std::endl;
 		std::getline(std::cin, temp);
 		
-		if (IsValidNumber(temp)) {
-			groundSpeed = std::stoi(temp);
+		if (is_valid_number(temp)) {
+			ground_speed = std::stoi(temp);
 
-			if (!(IsValidGroundSpeed(groundSpeed))) {			     //Validating Input
+			if (!(is_valid_ground_speed(ground_speed))) {			     //Validating Input
 				std::cout << "Speed Is Invalid" << std::endl;
 				
 				valid = false;
@@ -411,20 +411,20 @@ This functioon is used to validate user input
 
 */
 
-void AltitudeValidation(int &altitude)	{
+void altitude_validation(int &altitude)	{
 
 	std::string temp;
-	bool valid{ 0 };
+	bool valid{ false };
 	
 	do {															 //Looping until the input is valid
 
 		std::cout << "\nPlease Enter Altitude" << std::endl;
 		std::getline(std::cin, temp);
 		
-		if (IsValidNumber(temp)) {
+		if (is_valid_number(temp)) {
 			altitude = std::stoi(temp);
 
-			if (!(IsValidAltitude(altitude))) {                     //Validating Input
+			if (!(is_valid_altitude(altitude))) {                     //Validating Input
 				std::cout << "Altitude is Invalid" << std::endl;
 				
 				valid = false;
@@ -447,18 +447,18 @@ This functioon is used to validate user input
 
 */
 
-void GridReferenceValidation(std::string &gridReference)	{
+void grid_reference_validation(std::string &grid_reference)	{
 
 	std::string temp;
-	bool valid{ 0 };
+	bool valid{ false };
 	
 	do {															 //Looping until the input is valid
 
 		std::cout << "\nPlease Enter Grid Reference" << std::endl;
-		std::getline(std::cin, gridReference);
+		std::getline(std::cin, grid_reference);
 		
 
-		if (!(IsValidGridReference(gridReference))) {                //Validating Input
+		if (!(is_valid_grid_reference(grid_reference))) {                //Validating Input
 			std::cout << "Grid Reference is Invalid" << std::endl;
 			valid = false;
 		}
@@ -475,19 +475,19 @@ This functioon is used to validate user input
 
 */
 
-void HeadingValidation(int &heading)	{
+void heading_validation(int &heading)	{
 
 	std::string temp;
-	bool valid{ 0 };
+	bool valid{ false };
 	
 	do {															 //Looping until the input is valid
 		std::cout << "\nPlease Enter Heading" << std::endl;
 		std::getline(std::cin, temp);
 
-		if (IsValidNumber(temp)) {
+		if (is_valid_number(temp)) {
 			heading = std::stoi(temp);
 
-			if (!(IsValidHeading(heading))) {                       //Validating Input
+			if (!(is_valid_heading(heading))) {                       //Validating Input
 				std::cout << "Heading is Invalid" << std::endl;
 				valid = false;
 			}
@@ -504,61 +504,57 @@ void HeadingValidation(int &heading)	{
 }
 
 
-bool IsValidFlightNumber(std::string flightnumber) {                     //Validation for flightnumber
+bool is_valid_flight_number(const std::string& flight_number) {                     //Validation for flight_number
 
 	const std::regex pattern("[A-Z][A-Z][0-9][0-9]?[0-9]?[0-9]?[0-9]?[A-Z]?$");
 
-	return std::regex_match(flightnumber, pattern);
+	return std::regex_match(flight_number, pattern);
 }
-bool IsValidAirline(std::string airline) {                               //Validation for airline
+
+
+bool is_valid_airline(const std::string& airline)
+{
+	//Validation for airline
 
 	const std::regex pattern("[A-Za-z]+(\\s)?([A-za-z]+)?$");
 
 	return std::regex_match(airline, pattern);
 }
-bool IsValidAircraftType(std::string aircraftType) {                     //Validation for aircraft type
+
+bool is_valid_aircraft_type(const std::string& aircraft_type) {                     //Validation for aircraft type
 
 	const std::regex pattern("([A-Za-z]+)(\\s)?([A-Za-z0-9]+)?$");
 
-	return std::regex_match(aircraftType, pattern);
+	return std::regex_match(aircraft_type, pattern);
 }
-bool IsValidGridReference(std::string gridReference) {                  //Validation for Grid Reference
+bool is_valid_grid_reference(const std::string& grid_reference) {                  //Validation for Grid Reference
 
 	const std::regex pattern("[A-J][0-9|10]$");
 
-	return std::regex_match(gridReference, pattern);
+	return std::regex_match(grid_reference, pattern);
 }
-bool IsValidAltitude(int altitude) {                                    //Validation for Altitude
+bool is_valid_altitude(const int altitude)
+{
+	//Validation for Altitude
 
-	if (altitude <= 0 || altitude >= 60000) {
-		return false;
-	}
-	else {
-		return true;
-	}
-
+	return altitude <= 0 || altitude >= 60000 ? false : true;
 }
-bool IsValidGroundSpeed(int groundSpeed) {                              //Validation for Ground Speed
 
-	if (groundSpeed <= 0 || groundSpeed >= 800) {
-		return false;
-	}
-	else {
-		return true;
-	}
+bool is_valid_ground_speed(const int ground_speed)
+{
+	//Validation for Ground Speed
 
+	return ground_speed <= 0 || ground_speed >= 800 ? false : true;
 }
-bool IsValidHeading(int heading) {                                     //Validation for Heading
 
-	if (heading < 0 || heading > 360) {
-		return false;
-	}
-	else {
-		return true;
-	}
+bool is_valid_heading(const int heading)
+{
+	//Validation for Heading
 
+	return heading < 0 || heading > 360 ? false : true;
 }
-bool IsValidNumber(std::string temp) {                                //Validation to insure input is number before conversion
+
+bool is_valid_number(const std::string& temp) {                                //Validation to insure input is number before conversion
 
 	const std::regex pattern("[0-9][0-9]?[0-9]?[0-9]?[0-9]?$");
 
